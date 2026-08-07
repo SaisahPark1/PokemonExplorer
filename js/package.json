@@ -1,0 +1,12 @@
+{
+    "name": "node_fetch",
+    "version": "1.0.0",
+    "description": "Pokedex Explorer",
+    "license": "MIT",
+    "author": "Josiah Park",
+    "type": "commonjs",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    }
+}
