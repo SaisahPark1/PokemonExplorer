@@ -16,10 +16,14 @@ async function printPokemon(){
         pokeCard.style.display = '' // make sure the clone is visible
         pokeCard.id = "pokemon-"+i
         pokeCard.querySelector('#image').src = pokemon.sprites.front_default
-        pokeCard.querySelector('#name').innerHTML = pokemon.name
+        pokeCard.querySelector('#name').innerHTML = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
 
         document.getElementById("pokemonHolder").appendChild(pokeCard)
         console.log("Pokemon Loaded: "+(i+1))
+        document.getElementById("pokemon-"+i).addEventListener("click", function() {
+            let audio = new Audio(pokemon.cries.legacy);
+            audio.play();
+        });
     }
 }
 
@@ -27,7 +31,7 @@ async function load(){
     $("body").css("overflow", "hidden");
     await makePokemon()
     $("body").css("overflow", "visible");
-    $('#loader').fadeTo(1000, 0)
+    $('#loader').fadeTo(1000, 0).hide();
 }
 
 load()
