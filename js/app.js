@@ -9,13 +9,12 @@ async function makePokemon(){
 async function printPokemon(){
     const template = document.getElementById("pokemonHolder").firstElementChild
     template.style.display = 'none' // hide the template so it doesn't show as a blank card
-
     for(let i = 0; i < pokemonList.length; i++){
         let pokemon = await fetch("https://pokeapi.co/api/v2/pokemon/"+(i+1)+"/").then(res => res.json());
 
         let pokeCard = template.cloneNode(true)
         pokeCard.style.display = '' // make sure the clone is visible
-        pokeCard.id = "pokemon-" + i
+        pokeCard.id = "pokemon-"+i
         pokeCard.querySelector('#image').src = pokemon.sprites.front_default
         pokeCard.querySelector('#name').innerHTML = pokemon.name
 
@@ -25,9 +24,10 @@ async function printPokemon(){
 }
 
 async function load(){
-    document.querySelector('#loader').style.display = 'block'
+    $("body").css("overflow", "hidden");
     await makePokemon()
-    document.querySelector('#loader').style.display = 'none'
+    $("body").css("overflow", "visible");
+    $('#loader').fadeTo(1000, 0)
 }
 
 load()
