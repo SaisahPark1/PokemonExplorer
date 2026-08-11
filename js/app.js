@@ -31,7 +31,9 @@ async function load(){
     $("body").css("overflow", "hidden");
     await makePokemon()
     $("body").css("overflow", "visible");
-    $('#loader').fadeTo(1000, 0).hide();
+    $('#loader').fadeTo(1000, 0, function() {
+        $(this).hide(); // Hide after fade completes
+    });
 }
 
 load()
