@@ -1,4 +1,5 @@
 let pokemonList
+let selectedPokemon
 
 async function makePokemon(){
     let data = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151&offset=0').then(res => res.json());
@@ -23,6 +24,7 @@ async function printPokemon(){
         document.getElementById("pokemon-"+i).addEventListener("click", function() {
             let audio = new Audio(pokemon.cries.legacy);
             audio.play();
+            loadPokemonData(i+1);
         });
     }
 }
@@ -34,6 +36,12 @@ async function load(){
     $('#loader').fadeTo(1000, 0, function() {
         $(this).hide(); // Hide after fade completes
     });
+}
+
+async function loadPokemonData(dexNumber){
+    let pokemon = await fetch("https://pokeapi.co/api/v2/pokemon/"+(dexNumber)+"/").then(res => res.json());
+    console.log(pokemon)
+    document.getElementById("close-up").src = pokemon.sprites.front_default
 }
 
 load()
