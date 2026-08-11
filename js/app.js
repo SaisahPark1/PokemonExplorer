@@ -42,6 +42,17 @@ async function loadPokemonData(dexNumber){
     let pokemon = await fetch("https://pokeapi.co/api/v2/pokemon/"+(dexNumber)+"/").then(res => res.json());
     console.log(pokemon)
     document.getElementById("close-up").src = pokemon.sprites.front_default
+    document.getElementById("info-name").innerHTML = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+    document.getElementById("number").innerHTML = dexNumber
+    document.getElementById("p-type").innerHTML = pokemon.types[0].type.name.charAt(0).toUpperCase() + pokemon.types[0].type.name.slice(1);
+    try{
+        document.getElementById("s-type").innerHTML = pokemon.types[1].type.name.charAt(0).toUpperCase() + pokemon.types[1].type.name.slice(1);
+    } catch {
+        document.getElementById("s-type").innerHTML = "N/A"
+    }
+    document.getElementById("height").innerHTML = pokemon.height/10+" m"
+    document.getElementById("weight").innerHTML = pokemon.weight/10+" kg"
+    document.getElementById("exp").innerHTML = pokemon.base_experience
 }
 
 load()
