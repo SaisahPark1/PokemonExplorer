@@ -1,15 +1,24 @@
+
+
 let pokemonList
 let selectedPokemon
+let searchable = []
 
 async function makePokemon(){
     let data = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151&offset=0').then(res => res.json());
     pokemonList = data.results
+    searchable.push(pokemonList.map(pokemon => pokemon.name))
     await printPokemon()
 }
 
-async function printPokemon(){
+async function printPokemon(searchData = null){
     const template = document.getElementById("pokemonHolder").firstElementChild
-    template.style.display = 'none' // hide the template so it doesn't show as a blank card
+    let searchemon = []
+    if (typeof searchData === "string"){
+        searchemon = pokemonList.filter(x => x.name.match(/[\s\S]*searchData[\s\S]*/))
+        console.log(searchemon)
+    }
+    template.style.display = 'none'
     for(let i = 0; i < pokemonList.length; i++){
         let pokemon = await fetch("https://pokeapi.co/api/v2/pokemon/"+(i+1)+"/").then(res => res.json());
 
@@ -56,3 +65,17 @@ async function loadPokemonData(dexNumber){
 }
 
 load()
+
+document.getElementById("search-button").addEventListener("click", async function() {
+    $('#loader').show().fadeTo(0, 100);
+    $("body").css("overflow", "hidden");
+    try{
+        await printPokemon(document.getElementById("searchInput").value)
+    } catch {
+        await printPokemon()
+    }
+    $("body").css("overflow", "visible");
+    $('#loader').fadeTo(1000, 0, function() {
+        $(this).hide(); // Hide after fade completes
+    });
+});
