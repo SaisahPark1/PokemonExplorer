@@ -1,26 +1,36 @@
-
+document.querySelector('form').addEventListener('submit', function(e) {
+  e.preventDefault();
+});
 
 let pokemonList
 let selectedPokemon
-let searchable = []
 
 async function makePokemon(){
     let data = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151&offset=0').then(res => res.json());
     pokemonList = data.results
-    searchable.push(pokemonList.map(pokemon => pokemon.name))
     await printPokemon()
 }
 
 async function printPokemon(searchData = null){
     const template = document.getElementById("pokemonHolder").firstElementChild
+    console.log(searchData)
     let searchemon = []
-    if (typeof searchData === "string"){
-        searchemon = pokemonList.filter(x => x.name.match(/[\s\S]*searchData[\s\S]*/))
-        console.log(searchemon)
+    if (Number.isInteger(Number(searchData)) && Number(searchData) > 0){
+        searchemon.push(searchData)
+    } else if (typeof searchData === "string"){
+        searchemon = pokemonList.filter(x => x.name.includes(searchData.toLowerCase())).map(x => pokemonList.indexOf(x)+1)
+    } else {
+        searchemon = pokemonList.map(x => pokemonList.indexOf(x)+1)
     }
     template.style.display = 'none'
-    for(let i = 0; i < pokemonList.length; i++){
-        let pokemon = await fetch("https://pokeapi.co/api/v2/pokemon/"+(i+1)+"/").then(res => res.json());
+    
+    const container = document.getElementById('pokemonHolder');
+    const first = container.firstElementChild;
+    container.innerHTML = '';
+    container.appendChild(first);
+
+    for(let i = 0; i < searchemon.length; i++){
+        let pokemon = await fetch("https://pokeapi.co/api/v2/pokemon/"+(searchemon[i])+"/").then(res => res.json());
 
         let pokeCard = template.cloneNode(true)
         pokeCard.style.display = '' // make sure the clone is visible
@@ -33,7 +43,7 @@ async function printPokemon(searchData = null){
         document.getElementById("pokemon-"+i).addEventListener("click", function() {
             let audio = new Audio(pokemon.cries.legacy);
             audio.play();
-            loadPokemonData(i+1);
+            loadPokemonData(searchemon[i]);
         });
     }
 }
@@ -70,7 +80,7 @@ document.getElementById("search-button").addEventListener("click", async functio
     $('#loader').show().fadeTo(0, 100);
     $("body").css("overflow", "hidden");
     try{
-        await printPokemon(document.getElementById("searchInput").value)
+        await printPokemon(document.getElementById("search-input").value)
     } catch {
         await printPokemon()
     }
