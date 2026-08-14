@@ -15,10 +15,9 @@ async function makePokemon(){
 
 async function printPokemon(searchData = null){
     const template = document.getElementById("pokemonHolder").firstElementChild
-    console.log(searchData)
     let searchemon = []
     let allFiltered
-    console.log(filter)
+
     if (filter != "none"){
         allFiltered = await fetch("https://pokeapi.co/api/v2/type/"+filter).then(res => res.json());
         allFiltered = allFiltered.pokemon
@@ -28,6 +27,7 @@ async function printPokemon(searchData = null){
     } else {
         allFiltered = pokemonList
     }
+
     if (Number.isInteger(Number(searchData)) && Number(searchData) > 0){
         searchemon.push(searchData)
     } else if (typeof searchData === "string"){
@@ -114,26 +114,20 @@ const scrollToTopButton =
                 behavior: 'smooth'
             });
         }
-document.querySelector('select').addEventListener('change', function(e) {
-  filter = e.target.value
-  printPokemon()
+
+document.querySelector('select').addEventListener('change', async function(e) {
+    filter = e.target.value
+    await printPokemon()
 });
 
-document.getElementById("confirm").addEventListener("click", async function() {
+document.getElementById('pokeNum').addEventListener('submit', async function(e) {
     $('#loader').show().fadeTo(0, 100);
     $("body").css("overflow", "hidden");
-    try{
-        await printPokemon(document.getElementById("search-input").value)
-    } catch {
-        await printPokemon()
-    }
+    e.preventDefault();
+    pokemonAmount = Number(document.getElementById('numberOf').value);
+    await makePokemon();
     $("body").css("overflow", "visible");
     $('#loader').fadeTo(1000, 0, function() {
         $(this).hide(); // Hide after fade completes
     });
-});
-
-document.getElementById('confirmCount').addEventListener('click', function(e) {
-  pokemonAmount = e.target.value
-  printPokemon()
 });
