@@ -89,3 +89,15 @@ document.getElementById("search-button").addEventListener("click", async functio
         $(this).hide(); // Hide after fade completes
     });
 });
+
+const scrollToTopButton = 
+              document.getElementById('scroll-to-top');
+              const moveThis = document.getElementById('pokemonHolder');
+
+        // Smooth scroll to top
+        function scrollToTop() {
+            moveThis.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }

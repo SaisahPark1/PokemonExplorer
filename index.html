@@ -18,9 +18,9 @@
 <body class="bg-violet-200">
     <header class="flex items-center gap-4 bg-violet-400 h-20 border-b-4 border-violet-700 shadow-sm shadow-zinc-400">
         <h1 class="PC-Box p-4">PC Box #?????</h1>
-        <div class="flex items-center">
-        <label for="types" class="">Filter by Type:</label>
-            <select name="" id="" class="visible">
+        <div class="flex items-center gap-2">
+        <label for="types" class="">Filter:</label>
+            <select name="" id="" class="border-2 bg-violet-200 border-violet-700 hover:cursor-pointer">
                 <option value="none">None</option>
                 <option value="0">Normal</option>
                 <option value="1">Fighting</option>
@@ -51,15 +51,18 @@
     </div> -->
     <search>
         <form action="search">
-            <input type="search" name="query" id="search-input" placeholder="Lucario" class="bg-amber-200 border-violet-700 border-4 rounded-xl p-2">
-            <button type="submit" id="search-button" class="">Search</button>
+            <input type="search" name="query" id="search-input" placeholder="Lucario" class="bg-amber-200 border-violet-700 border-2 rounded-xl p-2 min-[768px]:w-60 min-[480px]:w-40">
+            <button type="submit" id="search-button" class="overflow-x-hidden">Search</button>
         </form>
     </search>
+
     </header>
      <div id="loader" class="flex justify-center">
         <img src="./images/black_screen.jpg" alt="black" class="fixed top-0 left-0 w-screen h-screen object-cover z-10 pointer-events-none">
         <img src="./images/pokeball.png" alt="Loading" class="flex fixed min-[480px]:h-fit min-[768px]:h-screen z-10 animate-spin">
     </div>
+
+    <!-- Extra Info Tab -->
     <div id="infoContainer" class="grid justify-self-center min-[480px]:grid-cols-1 min-[728px]:grid-cols-2 gap-4 border-slate-900 border-4 bg-amber-200 p-4 mt-2 mb-2 h-92 sm:overflow-scroll sm:overflow-x-hidden shadow-xl shadow-zinc-400">
         <div class="grid min-[728px]:grid-cols-1">
         <h3 class="">Name: <span id="info-name">#</span></h3>
@@ -71,15 +74,24 @@
         <h3 class="">Base Experience: <span id="exp">#</span></h3>
         </div>
         <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="placeholder" id="close-up" class="justify-self-center h-full">
+
+        <!-- Scroll Top Button -->
+        <button onclick="scrollToTop()" 
+            class="scroll-to-top fixed bottom-2 right-3 bg-gray-800 text-white rounded-full transition duration-300 hover:bg-gray-700 hover:text-gray-200 hover:cursor-pointer p-2 border-2 border-white shadow-sm shadow-zinc-400">
+        <span>Up!</span>
+    </button>
     </div>
+
     <!-- Ref img <img src="https://archives.bulbagarden.net/media/upload/thumb/3/37/Bill_PC_HGSS.png/220px-Bill_PC_HGSS.png" alt="" id="image" class=""> -->
-     <form id="pokeNum" action="search" class="flex justify-self-center"><span class="bg-mauve-200 border-b-0 border-black border-4 border-r-0 p-4">How many pokemon?</span><input id="numberOf" type="number" placeholder="151" class="border-4 border-black bg-mauve-200 border-b-0 p-2"></form>
-    <article id="pokemonHolder" class="grid overflow-y-scroll max-h-82 bg-mauve-200 border-4 border-black-700 grid-cols-2 md:grid-cols-3 lg:grid-cols-6 p-12 gap-12">
+
+    <!-- Pokemon Container -->
+     <form id="pokeNum" action="search" class="flex justify-self-center"><span class="bg-mauve-200 border-b-0 border-black border-2 border-r-0 p-2">How many pokemon?</span><input id="numberOf" type="number" placeholder="151" class="border-2 border-black border-r-0 bg-mauve-200 border-b-0 p-2"><button id="confirmCount" class="hover:cursor-pointer bg-mauve-200 border-b-0 border-black border-2 p-2">Submit</button></form>
+    <article id="pokemonHolder" class="grid overflow-y-scroll max-h-82 bg-mauve-200 border-2 border-black-700 grid-cols-2 md:grid-cols-3 lg:grid-cols-6 p-12 gap-12">
         <button class="rounded-[50%]"><div id="card" class="flex flex-col items-center">
             <span id="name" class="align-self-center">Loremmon!</span>
-                <div class="flex justify-center items-center p-8 max-w-3xs max-h-96 m-4 border-4 hover:border-blue-500 border-slate-900 bg-gradient-to-b from-rose-600 from-50% to-indigo-50 to-50% rounded-[50%] shadow-xl shadow-zinc-400">
+                <div class="flex justify-center items-center p-8 max-w-3xs max-h-96 m-4 border-4 hover:border-blue-500 border-slate-900 bg-gradient-to-b from-rose-600 from-50% to-indigo-50 to-50% rounded-[50%] shadow-xl shadow-zinc-400 hover:cursor-pointer">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Imagine bulbasaur here" id="image" class="h-full">
-            </button></div>
+            </button></div></article>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="/js/app.js"></script>
 </body>
