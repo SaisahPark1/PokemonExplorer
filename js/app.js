@@ -4,9 +4,11 @@ document.querySelector('form').addEventListener('submit', function(e) {
 
 let pokemonList
 let selectedPokemon
+let filter = "none"
+let pokemonAmount = 151
 
 async function makePokemon(){
-    let data = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151&offset=0').then(res => res.json());
+    let data = await fetch('https://pokeapi.co/api/v2/pokemon?limit='+pokemonAmount+'&offset=0').then(res => res.json());
     pokemonList = data.results
     await printPokemon()
 }
@@ -15,12 +17,23 @@ async function printPokemon(searchData = null){
     const template = document.getElementById("pokemonHolder").firstElementChild
     console.log(searchData)
     let searchemon = []
+    let allFiltered
+    console.log(filter)
+    if (filter != "none"){
+        allFiltered = await fetch("https://pokeapi.co/api/v2/type/"+filter).then(res => res.json());
+        allFiltered = allFiltered.pokemon
+        console.log(allFiltered)
+        const filteredNames = new Set(allFiltered.map(y => y.pokemon.name));
+        allFiltered = pokemonList.filter(x => filteredNames.has(x.name));
+    } else {
+        allFiltered = pokemonList
+    }
     if (Number.isInteger(Number(searchData)) && Number(searchData) > 0){
         searchemon.push(searchData)
     } else if (typeof searchData === "string"){
-        searchemon = pokemonList.filter(x => x.name.includes(searchData.toLowerCase())).map(x => pokemonList.indexOf(x)+1)
+        searchemon = allFiltered.filter(x => x.name.includes(searchData.toLowerCase())).map(x => pokemonList.indexOf(x)+1)
     } else {
-        searchemon = pokemonList.map(x => pokemonList.indexOf(x)+1)
+        searchemon = allFiltered.map(x => pokemonList.indexOf(x)+1)
     }
     template.style.display = 'none'
     
@@ -101,3 +114,26 @@ const scrollToTopButton =
                 behavior: 'smooth'
             });
         }
+document.querySelector('select').addEventListener('change', function(e) {
+  filter = e.target.value
+  printPokemon()
+});
+
+document.getElementById("confirm").addEventListener("click", async function() {
+    $('#loader').show().fadeTo(0, 100);
+    $("body").css("overflow", "hidden");
+    try{
+        await printPokemon(document.getElementById("search-input").value)
+    } catch {
+        await printPokemon()
+    }
+    $("body").css("overflow", "visible");
+    $('#loader').fadeTo(1000, 0, function() {
+        $(this).hide(); // Hide after fade completes
+    });
+});
+
+document.getElementById('confirmCount').addEventListener('click', function(e) {
+  pokemonAmount = e.target.value
+  printPokemon()
+});
