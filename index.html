@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="/images/pokeball.png">
+    <link rel="icon" type="image/x-icon" href="images/pokeball.png">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style type="text/tailwindcss">
         @font-face {
@@ -20,7 +20,7 @@
     <header class="flex items-center gap-4 bg-violet-400 h-20 border-b-4 border-violet-700 shadow-sm shadow-zinc-400">
         <h1 class="p-4">PC Box #??????</h1>
         <div class="border-2 bg-black border-violet-700 p-0.5">
-        <button class="hover:animate-pulse bg-gradient-to-r from-pink-500 via-emerald-300 to-amber-200 bg-clip-text text-transparent" id="happyGoL">Use Sweet Scent?</button>
+        <button class="hover:animate-pulse hover:cursor-pointer bg-gradient-to-r from-pink-500 via-emerald-300 to-amber-200 bg-clip-text text-transparent" id="happyGoL">Use Sweet Scent?</button>
         </div>
 
         <label for="types" class="">Filter:</label>
@@ -56,8 +56,8 @@
 
     <!-- Hidden Loading Screen -->
      <div id="loader" class="flex justify-center">
-        <img src="./images/black_screen.jpg" alt="black" class="fixed top-0 left-0 w-screen h-screen object-cover z-10 pointer-events-none">
-        <img src="./images/pokeball.png" alt="Loading" class="flex fixed min-[480px]:h-fit min-[768px]:h-screen z-10 animate-spin">
+        <img src="images/black_screen.jpg" alt="black" class="fixed top-0 left-0 w-screen h-screen object-cover z-10 pointer-events-none">
+        <img src="images/pokeball.png" alt="Loading" class="flex fixed min-[480px]:h-fit min-[768px]:h-screen z-10 animate-spin">
     </div>
 
     <!-- Extra Info Tab -->
@@ -102,6 +102,6 @@
             </button></div></article>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="/js/app.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
