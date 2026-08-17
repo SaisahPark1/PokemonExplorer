@@ -19,8 +19,10 @@
 <body class="bg-violet-200">
     <header class="flex items-center gap-4 bg-violet-400 h-20 border-b-4 border-violet-700 shadow-sm shadow-zinc-400">
         <h1 class="p-4">PC Box #??????</h1>
-        <button class="hover:animate-pulse" id="happyGoL">Feeling lucky?</button>
-        
+        <div class="border-2 bg-black border-violet-700 p-0.5">
+        <button class="hover:animate-pulse bg-gradient-to-r from-pink-500 via-emerald-300 to-amber-200 bg-clip-text text-transparent" id="happyGoL">Use Sweet Scent?</button>
+        </div>
+
         <label for="types" class="">Filter:</label>
             <select name="" id="typing" class="border-2 bg-violet-200 border-violet-700 hover:cursor-pointer">
                 <option value="none">None</option>
@@ -46,7 +48,7 @@
 
     <search>
         <form action="search">
-            <input type="search" name="query" id="search-input" placeholder="Lucario" class="bg-violet-200 border-violet-700 border-2 rounded-xl p-2 min-[768px]:w-60 min-[480px]:w-40">
+            <input type="search" name="query" id="search-input" placeholder="Lucario" class="bg-violet-200 border-violet-700 border-2 rounded-xl p-2 min-[768px]:w-60 min-[480px]:w-25">
             <button type="submit" id="search-button" class="overflow-x-hidden hover:cursor-pointer p-0.5 rounded-xl ">Search</button>
         </form>
     </search>
