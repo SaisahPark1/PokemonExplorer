@@ -114,8 +114,14 @@ const scrollToTopButton =
         }
 
 document.getElementById('typing').addEventListener('change', async function(e) {
+    $('#loader').show().fadeTo(0, 100);
+    $("body").css("overflow", "hidden");
     filter = e.target.value
     await printPokemon(document.getElementById("search-input").value)
+    $("body").css("overflow", "visible");
+    $('#loader').fadeTo(1000, 0, function() {
+        $(this).hide(); // Hide after fade completes
+    });
 });
 
 document.getElementById('pokeNum').addEventListener('submit', async function(e) {
