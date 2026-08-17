@@ -10,7 +10,7 @@ let pokemonAmount = 151
 async function makePokemon(){
     let data = await fetch('https://pokeapi.co/api/v2/pokemon?limit='+pokemonAmount+'&offset=0').then(res => res.json());
     pokemonList = data.results
-    await printPokemon()
+    await printPokemon(document.getElementById("search-input").value)
 }
 
 async function printPokemon(searchData = null){
@@ -21,14 +21,13 @@ async function printPokemon(searchData = null){
     if (filter != "none"){
         allFiltered = await fetch("https://pokeapi.co/api/v2/type/"+filter).then(res => res.json());
         allFiltered = allFiltered.pokemon
-        console.log(allFiltered)
         const filteredNames = new Set(allFiltered.map(y => y.pokemon.name));
         allFiltered = pokemonList.filter(x => filteredNames.has(x.name));
     } else {
         allFiltered = pokemonList
     }
 
-    if (Number.isInteger(Number(searchData)) && Number(searchData) > 0){
+    if (Number.isInteger(Number(searchData)) && 0 < Number(searchData) && Number(searchData)<= pokemonAmount){
         searchemon.push(searchData)
     } else if (typeof searchData === "string"){
         searchemon = allFiltered.filter(x => x.name.includes(searchData.toLowerCase())).map(x => pokemonList.indexOf(x)+1)
@@ -115,9 +114,9 @@ const scrollToTopButton =
             });
         }
 
-document.querySelector('select').addEventListener('change', async function(e) {
+document.getElementById('typing').addEventListener('change', async function(e) {
     filter = e.target.value
-    await printPokemon()
+    await printPokemon(document.getElementById("search-input").value)
 });
 
 document.getElementById('pokeNum').addEventListener('submit', async function(e) {
