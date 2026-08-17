@@ -53,8 +53,6 @@ async function printPokemon(searchData = null){
         document.getElementById("pokemonHolder").appendChild(pokeCard)
         console.log("Pokemon Loaded: "+(i+1))
         document.getElementById("pokemon-"+i).addEventListener("click", function() {
-            let audio = new Audio(pokemon.cries.legacy);
-            audio.play();
             loadPokemonData(searchemon[i]);
         });
     }
@@ -71,7 +69,8 @@ async function load(){
 
 async function loadPokemonData(dexNumber){
     let pokemon = await fetch("https://pokeapi.co/api/v2/pokemon/"+(dexNumber)+"/").then(res => res.json());
-    console.log(pokemon)
+    let audio = new Audio(pokemon.cries.latest);
+        audio.play();
     document.getElementById("close-up").src = pokemon.sprites.front_default
     document.getElementById("info-name").innerHTML = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
     document.getElementById("number").innerHTML = dexNumber
@@ -124,9 +123,16 @@ document.getElementById('pokeNum').addEventListener('submit', async function(e) 
     $("body").css("overflow", "hidden");
     e.preventDefault();
     pokemonAmount = Number(document.getElementById('numberOf').value);
+    if (pokemonAmount > 1025){
+        pokemonAmount = 1025
+    }
     await makePokemon();
     $("body").css("overflow", "visible");
     $('#loader').fadeTo(1000, 0, function() {
         $(this).hide(); // Hide after fade completes
     });
+});
+
+document.getElementById("happyGoL").addEventListener("click", async function() {
+    await loadPokemonData(Math.floor(Math.random() * pokemonAmount))
 });
